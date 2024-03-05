@@ -13,22 +13,22 @@ const AgentProfile = () => {
   });
   
   const dataArray = data ? Object.values(data)[0] : [];
-//  console.log(dataArray);
+  // console.log(dataArray);
 
-  const myProfile: ProfileProps | [] = dataArray.find((item:PropertyProps) => item._id === userId);
+  const myProfile: ProfileProps | null = dataArray.find((item: PropertyProps) => item._id === userId) || null;
 
-    if (isLoading) return <div>loading...</div>;
-    if (isError) return <div>error...</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred</div>;
+  if (!myProfile) return <div>Profile not found</div>;
 
-    return (
-        <Profile
-            type="Agent"
-            name={myProfile.name}
-            email={myProfile.email}
-            avatar={myProfile.avatar}
-            //properties={myProfile.allProperties}
-        />
-    );
+  return (
+    <Profile
+      type="Agent"
+      name={myProfile.name}
+      email={myProfile.email}
+      avatar={myProfile.avatar}
+    />
+  );
 };
 
 export default AgentProfile;

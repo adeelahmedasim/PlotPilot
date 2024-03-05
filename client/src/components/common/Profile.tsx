@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { ProfileProps, PropertyProps } from "../../interfaces/common";
+import { PropertyProps } from "../../interfaces/common";
 import PropertyCard from "./PropertyCard";
 
 function checkImage(url: any) {
@@ -15,7 +15,13 @@ function checkImage(url: any) {
 }
 
 
-
+ interface ProfileProps {
+    type: string,
+    name: string,
+    avatar: string,
+    email: string,
+    //properties: Array | undefined
+ }
 
 const Profile = ({ type, name, avatar, email }: ProfileProps) => (
     
