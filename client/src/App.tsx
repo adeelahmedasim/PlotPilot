@@ -1,7 +1,6 @@
 import {
   AuthBindings,
   Authenticated,
-  GitHubBanner,
   Refine,
 } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
@@ -12,6 +11,8 @@ import {
   notificationProvider,
   RefineSnackbarProvider,
   ThemedLayoutV2,
+  ThemedTitleV2 ,
+  RefineThemes,
 } from "@refinedev/mui";
 
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,6 +31,8 @@ import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "./interfaces/google";
 
 import { Navigate } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+
 
 import { Login,
   Home, Agents, MyProfile, PropertyDetails, AllProperties,
@@ -50,6 +53,7 @@ VillaOutlined
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
+import Logo from "./components/Logo"
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((config) => {
@@ -164,7 +168,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GitHubBanner />
+    <ThemeProvider theme={RefineThemes.Blue}>
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <CssBaseline />
@@ -239,9 +243,20 @@ function App() {
                         key="authenticated-inner"
                         fallback={<CatchAllNavigate to="/login" />}
                       >
-                        <ThemedLayoutV2 Header={() => <Header sticky />}>
+                        <ThemedLayoutV2 
+                        Header={() => <Header sticky />}
+                        Title={({ collapsed }) => (
+                          <ThemedTitleV2
+                            collapsed={collapsed}
+                            icon={<Logo/>}
+                            text="PlotPilot"
+                          />
+                        )}
+                        >  
                           <Outlet />
                         </ThemedLayoutV2>
+
+                        
                       </Authenticated>
                     }
                   >
@@ -292,6 +307,8 @@ function App() {
           </RefineSnackbarProvider>
         </ColorModeContextProvider>
       </RefineKbarProvider>
+      </ThemeProvider>
+
     </BrowserRouter>
   );
 }
