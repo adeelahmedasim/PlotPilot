@@ -14,6 +14,10 @@ import {CustomButton } from "../components";
 
 
 
+interface User {
+    email: string;
+  }
+
 function checkImage(url: any) {
   const img = new Image();
   img.src = url;
@@ -22,7 +26,7 @@ function checkImage(url: any) {
 
 const PropertyDetails = () => {
   const navigate = useNavigate();
-  const { data: user} = useGetIdentity();
+  const { data: user } = useGetIdentity<User>();
   const { queryResult } = useShow();
   const { mutate } = useDelete();
   const { id } = useParams();
